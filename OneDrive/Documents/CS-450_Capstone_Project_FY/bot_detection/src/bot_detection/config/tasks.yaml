@@ -1,0 +1,31 @@
+research_task:
+  description: >
+    Conduct a thorough research about {topic}
+    Make sure you find any interesting and relevant information given
+    the current year is {current_year}.
+  expected_output: >
+    A list with 10 bullet points of the most relevant information about {topic}
+  agent: researcher
+
+reporting_task:
+  description: >
+    Review the context you got and expand each topic into a full section for a report.
+    Make sure the report is detailed and contains any and all relevant information.
+  expected_output: >
+    A fully fledged report with the main topics, each with a full section of information.
+    Formatted as markdown without '```'
+  agent: reporting_analyst
+  output_file: report.md
+
+context_pattern_task:
+  description: >
+    Similar to the report task, review web traffic from a site (be it social media or a e-commerce website) 
+    and check if there is any repetitive responses that are identical to the other, any instantaneous inputs (like instant purchases)
+    to see if it is done by a human or a bot. If it seems that it is a bot, take these 
+    questions into consideration before reporting them as one: Does this user have a history of doing instantaneous inputs? If it is a social media site,
+    do they have a history of reposting identical (word by word) responses after others? Do they have a history of promoting misleading and damaging material? If so, you
+    may progress with reporting them to the reporting_analyst on your findings.
+    Once you are done, notify the reporting analyst to do a report on your findings.
+  expected_output: >
+    Professionally detect if there are any bots in web traffic, while notifying the reporting_analyst of your findings.
+  agent: context_pattern_agent
