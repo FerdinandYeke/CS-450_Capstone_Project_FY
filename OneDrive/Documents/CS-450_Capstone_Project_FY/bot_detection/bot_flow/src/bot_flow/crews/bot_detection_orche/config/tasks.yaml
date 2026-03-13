@@ -1,0 +1,65 @@
+research_task:
+  description: >
+    Research about {topic} while applying that knowledge to the website: {website_URL}, web type: {web_type}, and bot type {bot_detect_type}.
+    Your research task should: 
+
+    1. Conduct a thorough research about {topic} and {bot_detect_type}.
+    2. Make sure you find any interesting and vital information given
+    3. The current year is {current_year}.
+    4. The current date is {current_date}.
+    5. Finalize a report for the other agents, where the report is a list of 10 bullet points of the most relevant info about {topic}, {web_type}, {bot_detect_type}, and {website_URL} together in one report
+    with statistical infomation as well of the {bot_detect_type} in {website_URL}.
+  expected_output: >
+    A list with 10 bullet points of the most relevant information about {website_URL} based on your research on {topic}, {web_type}, and {bot_detect_type}. Give 
+    context of what you have gathered to the {topic} Context Pattern Seeker so that they have an introduction for their task.
+  agent: researcher
+
+reporting_task:
+  description: >
+    Review the output from the {topic} Context Pattern Seeker and expand each topic into a full section for a report.
+    Make sure the report is detailed and contains any and all relevant information.
+    Make sure to do the analysis on the website URL {website_URL} instead of creating simulated data.
+    Current Year: {current_year}
+    Current Date: {current_date}
+
+    Your reporting task should:
+    1. Once the {topic} Context Pattern Agent is done with their task, review the output of the {topic} Context Patter Seeker Agent and 
+    build a report on their findings while also looking at the {website_URL} on the {bot_detect_type}. Keep in mind that the current year is {current_year}, and the date is {current_date}.
+    2. You must have the report done on a markdown while having a visual graph on their findings. You may use tools that aid in building a visual graph such as matplotlib from Python.
+    Once you do manage to generate a visual graph if possible (if so, you may have that exported as a .png).
+
+  expected_output: >
+    A fully fledged report with the main topics, each with a full section of information.
+    Formatted as markdown without '```'
+  agent: reporting_analyst
+  output_file: report.md
+
+context_pattern_task:
+  description: >
+    Detect any bot related activity in the {website_URL}
+    Do a real pattern seeking task of detecting bots in the website URL {website_URL}
+    Bot Type: {bot_detect_type}
+    Website URL: {website_URL}
+    Current Date: {current_date}
+
+    Your context pattern task should:
+    1. Receive website URL {website_URL} from the user's input (Keep in mind that the current date is {current_date}).
+    2. Check and ask the user whether the website is a Social Media Site or a E-Commerce Site {web_type}.
+    3. Once you determine what type the website is, check whether the user wants to see good bots of the site,
+      bad bots of a site, or both.
+    4. Once the user determines the type of bot they want to detect or both, know characteristics of {bot_detect_type} behavior from the {topic} Senior Data Researcher.
+    5. When taking the characteristics of bot behavior into consideration, see any patterns in the {website_URL} regarding user behavior possibly being nonhuman (bot) behavior.
+      If the site is an e-commerce site, see PATTERNS that show potential bot activity, like instant purchases. Once you see these patterns, record that information.
+      If the site is a social media site, see PATTERNS that show potential bot activity in the site type, like comments copied from other users where profile seems suspicious, scams, and
+      or damaging material. Scrape data from the website {website_URL} (FILL THE REST IN LATER FERD!!!!!), 
+      You may also use tools that can assist in your detection activites, such as tools that can let you see HTTP users, and/or Python API requests. (You can use a 
+      search tool for that).
+    6. Once done, make sure to record the details and count of the bots and the details of the bots,
+      such as the details of their activities. Check if there any patterns that further show bot related activites.
+      Also, give a summarized count of the potential bots of the site as well.
+    
+    Once you are done with all the steps, request the {topic} reporting analyst 
+    to make a markdown file with the most relevant information while requesting it to also generate a graphical stat charts of the bots count of the site.
+  expected_output: >
+    Professionally detect if there are any potential bots in a web traffice with a given website url {website_URL}, while notifying the {topic} Reporting Analyst of your findings.
+  agent: context_pattern_agent

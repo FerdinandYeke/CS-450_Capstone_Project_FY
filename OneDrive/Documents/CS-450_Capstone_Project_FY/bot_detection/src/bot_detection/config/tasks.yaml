@@ -23,8 +23,9 @@ context_pattern_task:
     and check if there is any repetitive responses that are identical to the other, any instantaneous inputs (like instant purchases)
     to see if it is done by a human or a bot. If it seems that it is a bot, take these 
     questions into consideration before reporting them as one: Does this user have a history of doing instantaneous inputs? If it is a social media site,
-    do they have a history of reposting identical (word by word) responses after others? Do they have a history of promoting misleading and damaging material? If so, you
-    may progress with reporting them to the reporting_analyst on your findings.
+    do they have a history of reposting identical (word by word) responses after others? Do they have a history of promoting misleading and damaging material?
+    If it is an e-commerce site (like Amazon for example), Are there any instantaneous purchases? If so, you
+    may progress with reporting them to the Reporting Analyst on your findings.
     Once you are done, notify the reporting analyst to do a report on your findings.
   expected_output: >
     Professionally detect if there are any bots in web traffic, while notifying the reporting_analyst of your findings.

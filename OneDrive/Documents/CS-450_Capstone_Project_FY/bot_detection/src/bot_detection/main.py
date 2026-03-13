@@ -18,10 +18,11 @@ def run():
     Run the crew.
     """
     inputs = {
-        #Well, the main topic that will be researched are web bots such as bot accounts in a e-commerce or social
+        # Well, the main topic that will be researched are web bots such as bot accounts in a e-commerce or social
         #media site.
         'topic': 'Web Bots',
         'current_year': str(datetime.now().year)
+        # web bot window box functions will possibly be called here.
     }
 
     try:
@@ -94,3 +95,8 @@ def run_with_trigger():
         return result
     except Exception as e:
         raise Exception(f"An error occurred while running the crew with trigger: {e}")
+    
+    #Tkinter (App box) will be constructed here.
+    def web_bot_detection_window():
+        #this method/function will be filled later with the web bot main window class.
+        pass
