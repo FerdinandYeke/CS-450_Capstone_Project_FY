@@ -32,7 +32,6 @@ class webBotWindow:
         "It does this by the use of Agentic LLMs that researches the site itself, reports what is on the site, " \
         "and tries to see contextes and patterns of a site's that shows any signs of bad bots.")
         label.pack()
-        #root.mainloop might be a boolean once all parameters in the methods have been used, while also might being at the end of this class.
         root.mainloop()
     setter = setWindow()
     setter

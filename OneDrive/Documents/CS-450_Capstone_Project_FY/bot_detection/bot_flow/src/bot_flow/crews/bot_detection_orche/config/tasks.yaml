@@ -51,7 +51,9 @@ context_pattern_task:
     5. When taking the characteristics of bot behavior into consideration, see any patterns in the {website_URL} regarding user behavior possibly being nonhuman (bot) behavior.
       If the site is an e-commerce site, see PATTERNS that show potential bot activity, like instant purchases. Once you see these patterns, record that information.
       If the site is a social media site, see PATTERNS that show potential bot activity in the site type, like comments copied from other users where profile seems suspicious, scams, and
-      or damaging material. Scrape data from the website {website_URL} (FILL THE REST IN LATER FERD!!!!!), 
+      or damaging material. 
+      Scrape HTTP Requests and HTTPs from the website {website_URL}. With the Scraper tool, check any extremely fast rates of HTTP Requests that seems to fast from a human user.
+      Also check and see any things in website page and see any elements from the page (like a comment) that seems in character of {bot_detect_type}.
       You may also use tools that can assist in your detection activites, such as tools that can let you see HTTP users, and/or Python API requests. (You can use a 
       search tool for that).
     6. Once done, make sure to record the details and count of the bots and the details of the bots,

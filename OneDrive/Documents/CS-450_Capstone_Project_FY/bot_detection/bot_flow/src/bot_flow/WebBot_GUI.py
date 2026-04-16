@@ -18,6 +18,7 @@
 # Imports necessary classes and sets up essential objects.
 import tkinter as tk
 import queue
+import threading
 #root = tk.Tk()
 #text_widget = tk.Text(root, height= 30, width= 100)
 #user_text_widget = tk.Text(root, height= 5, width= 100)
@@ -29,12 +30,17 @@ class WebBotWindow:
 
     # Default Constructor of the WebBotWindow Class with Setting up the main GUI Window.
     # This default constructor used to have a text_insert parameter, but is now unnecessary.
-    def __init__(self, start_flow_callback):
+    
+    def __init__(self):
         """"Contructs the Main Window GUI, containing the Text Output Field, and the User Input Field."""
-         # For staying on sync with the agents and terminal, the queue class is used.
-        self.msg_Queue= queue.Queue() # For staying on sync with the agents and terminal, the queue class is used.
-        self.start_flow_callback = start_flow_callback # Stays on track with the main.py Flows.
+        #self.agents_thread = agents_thread
+        
+         # For staying on sync with the agents and terminal, the queue class is used to safetly store and return messages
+         #  to the message box.
 
+        self.msg_Queue= queue.Queue() # For staying on sync with the agents and terminal, the queue class is used.
+        #self.start_flow_callback = start_flow_callback # Stays on track with the main.py Flows.
+        #self.agent_thread = agent_thread
         #self.text_insert = text_insert
         # 1. The root is called.
         self.root = tk.Tk() # Recalls the root variable above.
@@ -74,7 +80,7 @@ class WebBotWindow:
         # --Sets up the Website URL Entry Field.
 
         self.url_entry_widget = tk.Entry(self.root, width=50)
-        self.url_entry_widget.pack()
+        self.url_entry_widget.pack(pady=5)
         # --Website URL Entry Field ends here.
 
         # --Sets up the label field for website type.
@@ -101,12 +107,19 @@ class WebBotWindow:
 
         # Sets up the submit button for the user after all entrys are inputted by the user.
 
-        self.submit_button = tk.Button(self.root, text="Submit", command=self.submit_input)
+        #self.submit_button = tk.Button(self.root, text="Submit", command=lambda: [self.submit_input(),self.start_flow_callback])
+        #self.submit_button = tk.Button(self.root, text="Submit", command=self.submit_input)
+        #self.submit_button.pack(pady=10)
+
+
+        #self.submit_button = tk.Button(self.root, text="Submit", command=self.submit_input(agents=None)) # With the button, the submit button is acutally set to None first.
+        self.submit_button = tk.Button(self.root, text= "Submit", command= self.override_button_command(return_agents_Thread= None))
         self.submit_button.pack(pady=10)
+
         # Submit Button field setup ends here.
         # Construct Widgets ends here.
 
-        self.refreshWindow() # 6. After the construct_widgets() method is called, it then refreshes the message window for new messages.
+        #self.refreshWindow() # 6. After the construct_widgets() method is called, it then refreshes the message window for new messages.
     # __init__ method ends here.
 
     # This method could be used later for resizing the window.
@@ -114,24 +127,44 @@ class WebBotWindow:
         pass
     #root.mainloop()
 
+    # lockSubmit_Input function starts here.
+    def lock_Submit_Input(self):
+        """Locks the Submit Input Button."""
+        self.submit_button.config(state=tk.DISABLED)
+    # lock_Submit_Input function ends here
+
+    # unlock_Submit_Input function starts here.
+    def unlock_Submit_Input(self):
+        """Unlocks the Submit Input Button."""
+        self.submit_button.config(state=tk.NORMAL)
+    # lock_Submit_Input function ends here
+
+
+    # Could make a method that listens to the submit button being clicked here.
 
 # Returns the entry's values to the agents in str format.
     # Returns the URL.
     def return_URL_entry(self):
         """Returns the URL to the Agents."""
-        return self.url_entry_widget.get()
+        url_Retrived : str = ""
+        url_Retrived = self.url_entry_widget.get() # returns the string
+        return url_Retrived
     # Return URL method ends here.
 
     # Returns the Bot Type
     def return_bot_type_entry(self):
         """Returns the Bot Type to the Agents."""
-        return self.bot_type_entry.get()
+        bot_type_Retrived : str = ""
+        bot_type_Retrived = self.bot_type_entry.get() # returns the bot type entry as string.
+        return bot_type_Retrived
     # Return Bot Type entry method ends here.
     
     # Reeturns the Web Type.
     def return_web_type_entry(self):
         """Returns the Web Type to the Agents."""
-        return self.web_type_entry.get()
+        web_type_Retrived : str = ""
+        web_type_Retrived = self.web_type_entry.get()
+        return web_type_Retrived
     #Return Web Type Entry Method ends here.
     
 
@@ -144,31 +177,71 @@ class WebBotWindow:
 
     # Submit_input function starts here. This method gets all of the entries from the fields, submits it and prints out the message
     #   of the agents reviewing the given URL. (with accounting for the web type and bot type, of course.)
-    def submit_input(self):
+    def submit_input(self, agents):
+
         """Retrieves all the inputted values in the entry fields, while making a key/value pair of it."""
-        website_URL = self.url_entry_widget.get() # Gets the website URL via entry.
-        web_type = self.web_type_entry.get() # Gets the website type via entry.
-        bot_type = self.bot_type_entry.get() # Gets the bot type via entry.
+        
+        #while True:
+        #try():
+        #except ValueError as e:
 
-        # 1. Makes a key/value pair of the above values for complete entry scope.
-        data = {
-            "website_url" : website_URL,
-            "website_type" :  web_type,
-            "bot_type" : bot_type
-        }
-        # 2. This just prints out the website URL that the agents are currently looking at.
-        self.message_Stream(f"System: Agents are now currently looking at {data['website_url']}!")
+        #self.website_URL = self.url_entry_widget.get() # Gets the website URL via entry.
+        #self.web_type = self.web_type_entry.get() # Gets the website type via entry.
+        #self.bot_type = self.bot_type_entry.get() # Gets the bot type via entry.
 
-        #print(f"URL: {website_URL}, Type: {web_type}, Bot: {bot_type}") #print to console for testing.
-        #self.text_output.config(state=tk.NORMAL) # Enable writing to the text widget
-        #self.text_output.delete("1.0", tk.END) # Clear the widget
-        #self.text_output.insert(tk.END, f"You entered:\nURL: {website_URL}\nType: {web_type}\nBot: {bot_type}\n")
-        #self.text_output.config(state=tk.DISABLED)  # Disable again
+        # This calls the return methods instead for all three user inputs.
+        self.website_URL = self.return_bot_type_entry() 
+        self.web_type = self.return_web_type_entry()
+        self.bot_type = self.return_bot_type_entry()
 
-        # 2. Next, The Flow will reference this.
-        #self.start_flow_callback(data,self.msg_Queue)
+        if(self.website_URL != "" and self.web_type != "" and self.bot_type != ""):
+            #self.website_URL = self.url_entry_widget.get() # Gets the website URL via entry.
+            #self.web_type = self.web_type_entry.get() # Gets the website type via entry.
+            #self.bot_type = self.bot_type_entry.get() # Gets the bot type via entry.
+            self.lock_Submit_Input() 
+
+            # 1. Makes a key/value pair of the above values for complete entry scope. (This is also just for the submit_imput() function.)
+            data = {
+                "website_url" : self.website_URL,
+                "website_type" :  self.web_type,
+                "bot_type" : self.bot_type
+            }
+            # 2. This just prints out the website URL that the agents are currently looking at.
+            self.message_Stream(f"System: Agents are now currently looking at {data['website_url']}")
+
+            self.agents = agents # gets the agents thread.
+            agents # uses the agents thread.
+            # Run the callback (which is start_flow_thread) in a background thread
+            #threading.Thread(
+            #    target=self.start_flow_callback, 
+            #    args=(data, self.msg_Queue), 
+            #    daemon=True
+            #).start()
+
+            # 3/28/2026: A thread could be here to start the Agents.
+            # Once the user hits the submit button, a thread would start, and it will LOOK to the agents.
+            #t1 = threading.Thread(target= self.agents, daemon= True).start
+            #t1.daemon = True
+            #t1.start
+            #t1
+            #self.refreshWindow # Calls the refresh window for updates from the agents.
+            #break
+        else:
+            self.message_Stream(f"Invalid Inputs! Inputs must be Strings and URL must not be invalid!")
+            self.unlock_Submit_Input
+
+        
+        return self.agents # returns the agents for the agents thread. This will be the output for clicking the submit button.
+
+        # Code advised by Ollama (gemma3:4b) about threads based on this class and main.
+        #threading.Thread(target=self.start_flow_thread, args=(data, self.msg_Queue)).start()
 
     # Submit input function ends here.
+
+    def override_button_command(self, return_agents_Thread = None):
+        self.return_agents_Thread = return_agents_Thread
+        self.return_agents_Thread
+
 
     # Message Stream method starts here.
     # This is not the same as the Text Output Box, but they are connected! This method 
@@ -179,28 +252,24 @@ class WebBotWindow:
     def message_Stream(self, message):
         """Outputs a text from an Agent or User, and prints that onto the Text Output Field."""
         self.message = message
-        # New code starts here (3/17/2026).
-        #self.text_output.config(state=tk.DISABLED) # Does not let the user input text
-        #self.text_output.delete("1.0", tk.END) # Deletes the oldest messages in the text. Will be removed later.
-        #self.text_output.insert(tk.END, text_output)
-        #self.text_output.config(state=tk.DISABLED)
 
         self.text_output_Box.config(state=tk.NORMAL)
         self.text_output_Box.insert(tk.END, f"\n> {message}\n") # Gets the text output, formats it, and goes to the next line.
         self.text_output_Box.see(tk.END) # Automatically scrolls to the bottom of the text box.
         self.text_output_Box.config(state=tk.DISABLED) # After the new text, it immediately makes the text read-only.
 
-    #def run_main_loop(self):
-    #    root.mainloop()
-    
+    def update_GUI(self, text):
+        self.text = text
+        self.root.after(0, lambda: self.message_Stream(self.text))
+
     # Check queue method starts here.
-    def refreshWindow(self):
+    def refreshWindow(self, new_message):
         """This checks the queues from messages by the agents every 100ms. (This just refreshes the textbox.)"""
         try:
             while(True):
                 new_message = self.msg_Queue.get_nowait()
                 self.message_Stream(new_message)
-        except queue.Empty:
+        except Exception:
             pass
         self.root.after(100, self.refreshWindow)
     # Check queue method ends here.
@@ -211,9 +280,4 @@ class WebBotWindow:
         self.root.mainloop()
     
     # Text Output ends here.
-
-    # OK. SO, I am planning to have the lines of code that lets the user input entry stuff with their own method, and they will
-    #   instead RETURN VALUES to the terminal. (3/17/2026) Work in progress (5:48 pm)
-#runit = WebBotWindow()
-#runit.construct_widgets()
-#runit.run_main_loop()
+# Class Ends here.

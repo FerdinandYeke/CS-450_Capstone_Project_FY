@@ -12,7 +12,7 @@ from datetime import datetime
 from bot_flow.crews.bot_detection_orche.bot_detection_orche import BotDetectionOrche
 
 # Imports the web_Bot GUI class
-from bot_flow.web_bot_main_wind_new import WebBotWindow
+from bot_detection.bot_flow.src.bot_flow.web_bot_main_wind_Proto import WebBotWindow
 
 # 3/4/2026: The web bot window class will be planned to be imported into this class.
 
@@ -73,19 +73,19 @@ class Guide_Web_Bot_Flow(Flow[Guide_Web_Bot_State]):
         # This checks to see if the inputs are good bots or bad bots. Will try to do a try/catch for any other
         # invalid inputs.
         if(set_bot_type == "good_bots" or "bad_bots"):
-            final_wb_window.bot_type_entry = set_bot_type
+            #final_wb_window.bot_type_entry = set_bot_type
             self.state.bot_detect_type = set_bot_type
-            self.state.bot_detect_type = final_wb_window.bot_type_entry
+            #self.state.bot_detect_type = final_wb_window.bot_type_entry
             print(f"The Bot type you have selected is: {self.state.bot_detect_type}!") # This might change to just the set_bot_type variable instead.
-            final_wb_window.message_Output(f"The Bot type you have selected is: !")
+            #final_wb_window.message_Output(f"The Bot type you have selected is: !")
 
-        final_wb_window.submit_button
-        final_wb_window.submit_input
+        #final_wb_window.submit_button
+        #final_wb_window.submit_input
         print(f"Checking out the website {self.state.website_URL} while considering the web type {self.state.web_type} and {self.state.bot_detect_type} bots..."
               "\n Please Wait...")
         # Reports it's state to other functions after operation is finished here.
-        final_wb_window.message_Output(f"Checking out the website {self.state.website_URL} while considering the web type {self.state.web_type} and {self.state.bot_detect_type} bots..."
-              "\n Please Wait...")
+        #final_wb_window.message_Output(f"Checking out the website {self.state.website_URL} while considering the web type {self.state.web_type} and {self.state.bot_detect_type} bots..."
+        #      "\n Please Wait...")
         return self.state
     
     # Based of the build your first flow with the GuideCreaterFlow Example Class.
@@ -103,19 +103,19 @@ class Guide_Web_Bot_Flow(Flow[Guide_Web_Bot_State]):
 
         self.state.results = agents_Assemble.raw
         print("Here's what we got: ", self.state.results)
-        final_wb_window.message_Output(self.state.results)
+        #final_wb_window.message_Output(self.state.results)
         #pass
 # Runs the Guide Web Bot Flow class.
-#def kickoff():
-#    bot_flow = Guide_Web_Bot_Flow()
-#    bot_flow.kickoff()
+def kickoff():
+    bot_flow = Guide_Web_Bot_Flow()
+    bot_flow.kickoff()
 # Plots the Guide Web Bot Flow class.
-#def plot():
-#     bot_flow = Guide_Web_Bot_Flow()
-#     bot_flow.plot("WebBotFlowPlot")
+def plot():
+     bot_flow = Guide_Web_Bot_Flow()
+     bot_flow.plot("WebBotFlowPlot")
 # Executes both the kickoff and plot functions.
-#if __name__ == "__main__":
-#    kickoff()
+if __name__ == "__main__":
+    kickoff()
     # 3/3/2026: Plot will be done later.
 #    plot()
 # Class ends here.
