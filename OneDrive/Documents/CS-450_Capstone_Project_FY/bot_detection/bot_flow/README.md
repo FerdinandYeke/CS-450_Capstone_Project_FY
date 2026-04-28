@@ -1,56 +1,16 @@
-# {{crew_name}} Crew
+# CaputuR-A-Bot Application
 
-Welcome to the {{crew_name}} Crew project, powered by [crewAI](https://crewai.com). This template is designed to help you set up a multi-agent AI system with ease, leveraging the powerful and flexible framework provided by crewAI. Our goal is to enable your agents to collaborate effectively on complex tasks, maximizing their collective intelligence and capabilities.
+Welcome to the aCputuR-A-Bot Application! This project is detecting bot traffic on websites such as social media sites and e-commerce sites using Agentic LLMs and the AI framework **Crewai**
 
-## Installation
+## The purpose of this Capstone Project
+-- The purpose of this project is to have usage of Agentic LLMs to record web-based traffic to see:
+*   Users are actually human or bots
+*   Distingushing good bots for website functionality versus nerfarious bots that harm user experience and web functionality.
+*   Building a well documented report of the site's user traffic of nefarious bots.
 
-Ensure you have Python >=3.10 <3.14 installed on your system. This project uses [UV](https://docs.astral.sh/uv/) for dependency management and package handling, offering a seamless setup and execution experience.
+## Planned Features of this Agentic LLM Program
+*   Ability to take in a website URL and have pre-trained LLMs to report, research, and see any patterns in some specific contexts
+*   Ability to recieve a report in a document format (like .pdf, .txt)
 
-First, if you haven't already, install uv:
-
-```bash
-pip install uv
-```
-
-Next, navigate to your project directory and install the dependencies:
-
-(Optional) Lock the dependencies and install them by using the CLI command:
-```bash
-crewai install
-```
-
-### Customizing
-
-**Add your `OPENAI_API_KEY` into the `.env` file**
-
-- Modify `src/bot_flow/config/agents.yaml` to define your agents
-- Modify `src/bot_flow/config/tasks.yaml` to define your tasks
-- Modify `src/bot_flow/crew.py` to add your own logic, tools and specific args
-- Modify `src/bot_flow/main.py` to add custom inputs for your agents and tasks
-
-## Running the Project
-
-To kickstart your flow and begin execution, run this from the root folder of your project:
-
-```bash
-crewai run
-```
-
-This command initializes the bot_flow Flow as defined in your configuration.
-
-This example, unmodified, will run the create a `report.md` file with the output of a research on LLMs in the root folder.
-
-## Understanding Your Crew
-
-The bot_flow Crew is composed of multiple AI agents, each with unique roles, goals, and tools. These agents collaborate on a series of tasks, defined in `config/tasks.yaml`, leveraging their collective skills to achieve complex objectives. The `config/agents.yaml` file outlines the capabilities and configurations of each agent in your crew.
-
-## Support
-
-For support, questions, or feedback regarding the {{crew_name}} Crew or crewAI.
-
-- Visit our [documentation](https://docs.crewai.com)
-- Reach out to us through our [GitHub repository](https://github.com/joaomdmoura/crewai)
-- [Join our Discord](https://discord.com/invite/X4JWnZnxPb)
-- [Chat with our docs](https://chatg.pt/DWjSBZn)
-
-Let's create wonders together with the power and simplicity of crewAI.
+## To run
+*  To run, go to the bot_flow directory, and type **crewai run**
