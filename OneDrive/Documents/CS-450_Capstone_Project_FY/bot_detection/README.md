@@ -12,3 +12,6 @@ AI framework **Crewai**
 ## Planned Features of this Agentic LLM Program
 *   Ability to take in a website URL and have pre-trained LLMs to report, research, and see any patterns in some specific contexts
 *   Ability to recieve a report in a document format (like .pdf, .txt)
+
+## To run
+*  To run, go to the bot_flow directory, and type **crewai run**
