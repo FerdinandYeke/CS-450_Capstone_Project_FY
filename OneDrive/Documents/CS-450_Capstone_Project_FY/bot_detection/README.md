@@ -1,7 +1,6 @@
-# BotDetection Crew
+# CaputuR-A-Bot Application
 
-Welcome to the Bot Detection Project! This project is detecting bot traffic on websites such as social media sites and e-commerce sites using Agentic LLMs and the
-AI framework **Crewai**
+Welcome to the aCputuR-A-Bot Application! This project is detecting bot traffic on websites such as social media sites and e-commerce sites using Agentic LLMs and the AI framework **Crewai**
 
 ## The purpose of this Capstone Project
 -- The purpose of this project is to have usage of Agentic LLMs to record web-based traffic to see:
