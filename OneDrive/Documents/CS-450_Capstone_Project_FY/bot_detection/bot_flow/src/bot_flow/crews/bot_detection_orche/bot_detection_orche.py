@@ -23,16 +23,15 @@ class BotDetectionOrche():
     agents: List[BaseAgent]
     tasks: List[Task]
 
-    # Learn more about YAML configuration files here:
-    # Agents: https://docs.crewai.com/concepts/agents#yaml-configuration-recommended
-    # Tasks: https://docs.crewai.com/concepts/tasks#yaml-configuration-recommended
-    
-    # If you would like to add tools to your agents, you can learn more about it here:
-    # https://docs.crewai.com/concepts/agents#agent-tools
+    # --Originally, this was meant to be in a hierarchical structure. Due to complexity on agents, a sequential stucture is followed instead.
+    # --With this sequential structure, the Web Bot Researcher Agent runs first (to research and gather up-to date info for the other agents). 
+    #       The Context Pattern Seeker Agent runs second (to see any signs and patterns of bots in the given website with the Spider Scraper tool), and the Reporting Analyst
+    #       Agent running last (which builds a comprehensive report on the agents findings.).
     @agent
+    # --Researcher Agent function starts here
     def researcher(self) -> Agent:
         """ Defines the researcher function as an agent. Otherwords, this sets up the Researcher agent."""
-        #Instantiated SerperDevTool into variable search_tool.
+        # --Instantiated SerperDevTool into variable search_tool.
         search_tool = SerperDevTool()
         return Agent(
             config=self.agents_config['researcher'], # type: ignore[index]
@@ -42,8 +41,10 @@ class BotDetectionOrche():
             max_retry_limit=3,
             tools= [search_tool]
         )
-    
+    # --Researcher Agent function ends here.
+
     @agent
+    # --Context Pattern Agent function starts here.
     def context_pattern_agent(self) -> Agent:
         """"Like the other defined methods, this new method defines the context pattern agent."""
         # uni_ScraperTool= OxylabsUniversalScraperTool(
@@ -53,19 +54,24 @@ class BotDetectionOrche():
         #        "url": "{website_URL}"
         #    }
         #)
+        # -- For the Context Pattern Agent to actually look for potential bots in a website, the most fitting approach (currently) is using a web scraper tool Spider.
+        #       With Spider, the Context Pattern Agent can look specifically at the HTTP elements and HTTP Requests of a website (while also being given context on what is
+        #       a good/benificiary bot versus a malicious bot.) and see bots of type good or bad. 
         spider_tool = SpiderTool()
         return Agent(
             config=self.agents_config['context_pattern_agent'], # type: ignore[index]
             memory= True,
-            # Here, this agent will use the Oxylabs Universal Scraper Tool.
-            # Where it will scrape a website's info.
+            # -- Here, this agent will use the Spider Scraper Tool,
+            #     where it will scrape a website's info.
             tools= [spider_tool],
             max_iter= 15,
-            max_retry_limit=3,
+            max_retry_limit=3, # --Limits scraping attempts to 3.
             verbose=True
         )
+    # --Context Pattern Agent function ends here.
     
     @agent
+    # --Reporting Analyst Agent function starts here
     def reporting_analyst(self) -> Agent:
         """ Defines the reporting analyst function as an agent, i.e. setting up the Reporting analyst as an agent."""
         return Agent(
@@ -75,7 +81,8 @@ class BotDetectionOrche():
             max_retry_limit=3,
             verbose=True
         )
-    
+    # --Reporting Analyst Agent function ends here. 
+
     # To learn more about structured task outputs,
     # task dependencies, and task callbacks, check out the documentation:
     # https://docs.crewai.com/concepts/tasks#overview-of-a-task
@@ -119,6 +126,7 @@ class BotDetectionOrche():
             # process=Process.hierarchical, # In case you wanna use that instead https://docs.crewai.com/how-to/Hierarchical/
         )
     # IMPORTANT! For local usage, an Ollama LLM framework with Gemma 3 will be used here.
+    # Edit, now stored in the .env file.
 #    @llm
 #    def my_ollama_llm(self):
 #        """Constructs the Ollama LLM."""
